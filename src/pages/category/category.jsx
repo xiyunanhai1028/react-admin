@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {Card, Button, Icon, Table, message, Modal} from 'antd'
 import {reqCategory, addCategory, updateCategory} from "../../api/index"
 import AddForm from "./add-form"
+import UpdateForm from "./update-form"
 export default class Category extends Component {
 
     state = {
@@ -35,7 +36,10 @@ export default class Category extends Component {
                 render: (category) => (
                     <span>
                         <a href="javascript:;" style={{marginRight: 20}} onClick={() => this.updateCategory(category)}>修改分类</a>
-                        <a href="javascript:;" onClick={() => this.showSubCategory(category)}>查看子分类</a>
+                        {
+                            this.state.parentId === "0" ?
+                                <a href="javascript:;" onClick={() => this.showSubCategory(category)}>查看子分类</a> : null
+                        }
                     </span>
                 ),
             },
@@ -96,10 +100,11 @@ export default class Category extends Component {
         this.setState({
             showStatus: 2
         })
+        this.category = category
     }
 
     //添加对话框
-    showAdd=()=>{
+    showAdd = () => {
         this.setState({
             showStatus: 1
         })
@@ -110,6 +115,32 @@ export default class Category extends Component {
         this.setState({
             showStatus: 0
         })
+    }
+
+    //添加确定
+    addSubmit = async() => {
+        this.setState({showStatus: 0})
+        const {parentId, categoryName}=this.form.getFieldsValue()
+        this.form.resetFields()
+        const result = await addCategory(parentId, categoryName)
+        if (result.status === 0) {
+            this.getCategory()
+        } else {
+            message.error("添加失败")
+        }
+    }
+
+    updateSubmit = async() => {
+        this.setState({showStatus: 0})
+        const {categoryName} = this.form.getFieldsValue()
+        const categoryId = this.category._id
+        this.form.resetFields()
+        const result = await updateCategory(categoryId, categoryName)
+        if (result.status === 0) {
+            this.getCategory()
+        } else {
+            message.error("更新失败失败")
+        }
     }
 
     render() {
@@ -140,20 +171,19 @@ export default class Category extends Component {
                 <Modal
                     title="添加"
                     visible={showStatus === 1}
-                    onOk={this.handleOk}
+                    onOk={this.addSubmit}
                     onCancel={this.handleCancel}
                 >
-                    <AddForm></AddForm>
+                    <AddForm category={category} parentId={parentId} setForm={form => this.form = form}></AddForm>
                 </Modal>
                 <Modal
                     title="更新数据"
                     visible={showStatus === 2}
-                    onOk={this.handleOk}
+                    onOk={this.updateSubmit}
                     onCancel={this.handleCancel}
                 >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                    <UpdateForm categoryName={this.category ? this.category.name : ""}
+                                setForm={form => this.form = form}></UpdateForm>
                 </Modal>
             </Card>
         )
