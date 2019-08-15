@@ -15,6 +15,7 @@ export default class ProductHome extends Component {
         searchContent: ''
     }
 
+
     componentWillMount() {
         this.initColum()
     }
@@ -63,7 +64,8 @@ export default class ProductHome extends Component {
                         <a href="javaScript:"
                            onClick={() => this.props.history.push("/product/detail", {product})}>详情</a>
                         <br/>
-                        <a href="javaScript:">修改</a>
+                        <a href="javaScript:"
+                           onClick={() => this.props.history.push("/product/addupdate", {product,isUpdate:true})}>修改</a>
                     </span>
                 )
             },
@@ -122,7 +124,7 @@ export default class ProductHome extends Component {
         )
 
         const extra = (
-            <Button type="primary">
+            <Button type="primary" onClick={() => this.props.history.push("/product/addupdate",{isUpdate:false})}>
                 <Icon type="plus"/>
                 <span>添加商品</span>
             </Button>
@@ -141,5 +143,3 @@ export default class ProductHome extends Component {
         )
     }
 }
-
-// withRouter(ProductHome)

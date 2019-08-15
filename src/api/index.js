@@ -55,4 +55,18 @@ export const searchProduct = (pageNum, pageSize, searchType, searchContent) => a
 })
 
 //获取一个分类
-export const reqCategoryOne=(categoryId)=>ajax("/manage/category/info",{categoryId})
+export const reqCategoryOne = (categoryId) => ajax("/manage/category/info", {categoryId})
+
+//删除照片
+export const reqRomveImg = (name) => ajax("/manage/img/delete", {name}, "POST")
+
+//添加商品
+export const reqAddProduct = (categoryId, pCategoryId, name, desc, price, detail, imgs) => ajax("/manage/product/add", {
+    categoryId,
+    pCategoryId,
+    name,
+    desc,
+    price,
+    detail,
+    imgs
+}, "POST")

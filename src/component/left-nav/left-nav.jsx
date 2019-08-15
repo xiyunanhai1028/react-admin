@@ -24,7 +24,7 @@ class LeftNav extends Component {
                     </Menu.Item>
                 ))
             } else {
-                const cItem = item.children.find(cItem => cItem.key === path)//找到一个与当前路径匹配的子item
+                const cItem = item.children.find(cItem => path.indexOf(cItem.key) === 0)//找到一个与当前路径匹配的子item
                 if (cItem) {//存在说明当前item需要打开
                     this.openKey = item.key
                 }
@@ -47,7 +47,10 @@ class LeftNav extends Component {
     }
 
     render() {
-        const path = this.props.location.pathname
+        let path = this.props.location.pathname
+        if (path.indexOf("/product") === 0) {
+            path = "/product"
+        }
         return (
             <div className="left-nav">
                 <Link to="/" className="left-nav-header">

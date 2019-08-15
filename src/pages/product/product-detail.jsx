@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {reqCategoryOne} from "../../api/index"
 import {Card, Icon, List} from "antd"
 import "./product-detail.less"
+import {IMAGE_URL} from "../../utils/constance"
 
 const Item = List.Item
 export default class ProductDetail extends Component {
@@ -59,7 +60,7 @@ export default class ProductDetail extends Component {
                         <div>
                             {
                                 product.imgs.map(item => (
-                                    <img src={"http://localhost:5000/upload/" + item} alt="" className="content-img"
+                                    <img src={IMAGE_URL + item} alt="" className="content-img"
                                          key={item}/>
                                 ))
                             }
