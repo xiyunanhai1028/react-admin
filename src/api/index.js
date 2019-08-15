@@ -70,3 +70,6 @@ export const reqAddProduct = (categoryId, pCategoryId, name, desc, price, detail
     detail,
     imgs
 }, "POST")
+
+//获取角色管理数据
+export const reqRoles=()=>ajax("/manage/role/list")
