@@ -73,3 +73,9 @@ export const reqAddProduct = (categoryId, pCategoryId, name, desc, price, detail
 
 //获取角色管理数据
 export const reqRoles=()=>ajax("/manage/role/list")
+
+//添加角色名称
+export const reqAddRoleName=(roleName)=>ajax("/manage/role/add",{roleName},"POST")
+
+//更新权限
+export const reqRoleUpdate=(role)=>ajax("/manage/role/update",role,"POST")
