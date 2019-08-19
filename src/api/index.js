@@ -72,10 +72,22 @@ export const reqAddProduct = (categoryId, pCategoryId, name, desc, price, detail
 }, "POST")
 
 //获取角色管理数据
-export const reqRoles=()=>ajax("/manage/role/list")
+export const reqRoles = () => ajax("/manage/role/list")
 
 //添加角色名称
-export const reqAddRoleName=(roleName)=>ajax("/manage/role/add",{roleName},"POST")
+export const reqAddRoleName = (roleName) => ajax("/manage/role/add", {roleName}, "POST")
 
 //更新权限
-export const reqRoleUpdate=(role)=>ajax("/manage/role/update",role,"POST")
+export const reqRoleUpdate = (role) => ajax("/manage/role/update", role, "POST")
+
+//获取所有用户列表
+export const reqUsersList = () => ajax("/manage/user/list")
+
+//删除用户
+export const reqRemoveUser = (userId) => ajax("/manage/user/delete", {userId}, "POST")
+
+//添加用户
+export const reqAddUser=(user)=>ajax("/manage/user/add",user,"POST")
+
+//更新用户
+export const reqUpdateUser=(user)=>ajax("/manage/user/update",user,"POST")
